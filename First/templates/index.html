@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fraud Detection Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>🚨 Fraud Detection Dashboard</h1>
+
+<div class="card">
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <button>Upload Dataset</button>
+</form>
+</div>
+
+<div class="row">
+
+    <!-- DATASET -->
+    <div class="card large">
+        <h3>Dataset (First 5 Rows)</h3>
+        <div class="table-container">
+            {% for table in tables %}
+                {{ table|safe }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- HEATMAP -->
+    <div class="card small">
+        <h3>Heatmap</h3>
+        {% if heatmap %}
+            <img src="{{ heatmap }}">
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="card">
+        <h3>Fraud Graph</h3>
+        {% if fraud %}
+            <img src="{{ fraud }}">
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>PCA Clustering</h3>
+        {% if pca %}
+            <img src="{{ pca }}">
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="card">
+        <h3>Cluster Distribution</h3>
+        {% if cluster %}
+            <img src="{{ cluster }}">
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Fraud in Clusters</h3>
+        {% if fraud_cluster %}
+            <img src="{{ fraud_cluster }}">
+        {% endif %}
+    </div>
+
+</div>
+
+{% if result %}
+<div class="card result">
+    <h2>{{ result }}</h2>
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
